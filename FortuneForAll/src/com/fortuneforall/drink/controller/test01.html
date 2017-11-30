@@ -1,0 +1,41 @@
+<!-- 
+
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="../library/mlec.js"></script>
+</head>
+<body>
+	<h1>Ajax를 이용한 서버와의 통신</h1>
+	<div id="result"></div>
+	<br>
+	<button>Ajax 호출</button>
+	
+	<script>
+		$("button").on("click", function(){
+			alert("버튼 클릭됨");
+			
+			// XMLHttpRequest 객체 생성하기
+			var xhr = new XMLHttpRequest();
+			
+			// 콜백함수 설정하기
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){ // 0~4까지 값이 변함   (서버에서 모든 데이터가 오면 4)
+					if(xhr.status == 200){ // 응답코드 200 -> 정상처리
+						$("#result").html(xhr.responseText);
+					}
+				}
+			};
+			
+			// 서버에 비동기 요청하기 (open과 send는 항상 같이 쓰임)
+			// 요청방식, 호출페이지, 동기/비동기
+			xhr.open("GET", "hello.jsp", true); //true : 비동기 , false : 동기
+			xhr.send();
+		
+		});
+	</script>
+</body>
+</html>
